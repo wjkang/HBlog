@@ -4,7 +4,7 @@ node_js: stable  #设置相应的版本
 
 before_install:
 # 替换为刚才生成的解密信息
-- openssl aes-256-cbc -K $encrypted_236edd62da46_key -iv $encrypted_236edd62da46_iv -in id_rsa.enc -out id_rsa -d
+- openssl aes-256-cbc -K $encrypted_669a544d2f37_key -iv $encrypted_669a544d2f37_iv -in id_rsa.enc -out ~/.ssh/id_rsa -d
 # 改变文件权限
 - chmod 600 ~/.ssh/id_rsa
 # 配置 ssh
