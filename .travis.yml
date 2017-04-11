@@ -39,4 +39,4 @@ branches:
 env:
  global:
    - GH_REF: github.com/wjkang/wjkang.github.io.git  #设置GH_REF，注意更改yourname
-   - CODING_REF: git@git.coding.net:jaycewu/Blog.git
+   - CODING_REF: git@git.coding.net:jaycewu/jaycewu.coding.me.git
