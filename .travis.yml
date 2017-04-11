@@ -4,7 +4,7 @@ node_js: stable  #设置相应的版本
 
 before_install:
 # 替换为刚才生成的解密信息
-- openssl aes-256-cbc -K $encrypted_236edd62da46_key -iv $encrypted_236edd62da46_iv -in .travis/id_rsa.enc -out id_rsa -d
+- openssl aes-256-cbc -K $encrypted_236edd62da46_key -iv $encrypted_236edd62da46_iv -in id_rsa.enc -out id_rsa -d
 # 改变文件权限
 - chmod 600 ~/.ssh/id_rsa
 # 配置 ssh
@@ -26,7 +26,7 @@ after_script:
   - git config user.name "wjkang"  #修改name
   - git config user.email "977865769@qq.com"  #修改email
   - git add .
-  - git commit -m "Travis CI Push"
+  - git commit -m "Travis CI Build"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master  #GH_TOKEN是在Travis中配置token的名称
   - git push --force --quiet "${CODING_REF}" master:master
 
