@@ -2,6 +2,16 @@ language: node_js  #设置语言
 
 node_js: stable  #设置相应的版本
 
+before_install:
+# 替换为刚才生成的解密信息
+- openssl aes-256-cbc -K $encrypted_236edd62da46_key -iv $encrypted_236edd62da46_iv -in .travis/id_rsa.enc -out id_rsa -d
+# 改变文件权限
+- chmod 600 ~/.ssh/id_rsa
+# 配置 ssh
+- eval $(ssh-agent)
+- ssh-add ~/.ssh/id_rsa
+- cp .travis/ssh_config ~/.ssh/config
+
 install:
 
   - npm install  #安装hexo及插件
@@ -16,8 +26,9 @@ after_script:
   - git config user.name "wjkang"  #修改name
   - git config user.email "977865769@qq.com"  #修改email
   - git add .
-  - git commit -m "update"
+  - git commit -m "Travis CI Push"
   - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master  #GH_TOKEN是在Travis中配置token的名称
+  - git push --force --quiet "${CODING_REF}" master:master
 
 branches:
   only:
@@ -25,3 +36,4 @@ branches:
 env:
  global:
    - GH_REF: github.com/wjkang/wjkang.github.io.git  #设置GH_REF，注意更改yourname
+   - CODING_REF: git@git.coding.net:jaycewu/Blog.git
