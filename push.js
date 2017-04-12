@@ -26,5 +26,8 @@ var postCNBlogsData={
     Editor$Edit$lkbPost:"发布"
 };
 blogAgent.cnblogs.postBlog(postCNBlogsData,arguments[0],arguments[1])
-    .then(s=>console.log(s));
+    .then((s)=>{
+        console.log(s);
+        process.exit();
+    });
 
