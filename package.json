@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "blogagent": "^1.0.1",
+    "fs": "0.0.2",
     "hexo": "^3.2.0",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-category": "^0.1.3",
