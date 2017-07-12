@@ -1,4 +1,6 @@
 options:
   lineNumbers: false
+  imagePath: /images/article
+  overwriteImages: false
 editor:
   lineNumbers: false

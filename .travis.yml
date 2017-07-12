@@ -20,7 +20,7 @@ install:
   - npm install  #安装hexo及插件
 
 script:
-  - node push.js $cnBlogName $cnBlogPwd
+  #- node push.js $cnBlogName $cnBlogPwd
   - hexo cl  #清除
   - hexo g  #生成
 
