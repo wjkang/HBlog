@@ -4,7 +4,7 @@ tags:
  - webpack
 categories:
  - 前端
-data: 2016-09-04
+date: 2016-09-04
 ---
 开门见山
 ###1.打包单一模块

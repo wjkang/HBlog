@@ -4,7 +4,7 @@ tags:
  - webpack
 categories:
    - 前端
-data: 2016-12-27
+date: 2016-12-27
 ---
 >resolve.alias这个配置项相当于为文件目录配置一个别名
 

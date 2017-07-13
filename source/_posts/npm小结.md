@@ -4,7 +4,7 @@ tags:
  - npm
 categories:
  - 前端
-data: 2016-11-22
+date: 2016-11-22
 ---
 ###1、修改公共仓库地址
 windows下，修改C:\Users\Administrator下的文件.npmrc，将registry改为淘宝镜像地址，registry=https://registry.npm.taobao.org/。

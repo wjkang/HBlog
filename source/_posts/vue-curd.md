@@ -4,7 +4,7 @@ tags:
  - vue
 categories:
  - 前端
-data: 2016-09-20
+date: 2016-09-20
 ---
 一个简单的vue 增删改查的例子。[在线地址][1]
 html:

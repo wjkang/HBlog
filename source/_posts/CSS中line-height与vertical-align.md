@@ -5,7 +5,7 @@ tags:
   - vertical-align
 categories:
   - 前端
-data: 2017-03-28
+date: 2017-03-28
 ---
 >参考文章：
 >[深入了解CSS的line-height属性](http://mp.weixin.qq.com/s?__biz=MzAwNzAzMDY1NQ==&mid=206445305&idx=1&sn=899beb2d7e98194c000f9818c79f7778&scene=0#wechat_redirect)

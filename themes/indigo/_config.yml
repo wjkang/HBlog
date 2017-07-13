@@ -89,13 +89,15 @@ toc:
 #postMessage: 这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="<%- url_for(page.path).replace(/index\.html$/, '') %>" target="_blank" rel="external"><%- page.permalink.replace(/index\.html$/, '') %></a>
 
 # 站长统计，如要开启，输入CNZZ站点id，如 cnzz: 1255152447
-cnzz: false
+cnzz: 1262842552
 
 # 百度统计，如要开启，改为你的 key
-baidu_tongji: false
+baidu_tongji: d1a1593e59aa081f2f04170bf79d940a
 
 # 腾讯分析，如要开启，输入站点id
 tajs: false
+
+baidu_push: true
 
 # google
 google_analytics: false
@@ -135,14 +137,14 @@ since_year: 2015
 about: 用户页面中作者相关的描述性文字，如不需要设为 false
 
 # “不蒜子”访问量统计，详见 http://ibruce.info/2015/04/04/busuanzi/
-#visit_counter:
-  #site_uv: 站点总访客数：
-  #site_pv: 站点总访问量：
+visit_counter:
+  site_uv: 站点总访客数：
+  site_pv: 站点总访问量：
 
 # 动态定义title
 title_change:
   normal: (つェ⊂)咦!又好了!
-  leave: 死鬼去哪里了！
+  leave: 去哪里了！
 
 # 设置为 true 发布后将使用 unpkg cdn
 cdn: false

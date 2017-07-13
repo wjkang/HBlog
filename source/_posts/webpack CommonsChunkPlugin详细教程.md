@@ -4,7 +4,7 @@ tags:
  - CommonsChunkPlugin
 categories:
  - 前端
-data: 2016-09-03
+date: 2016-09-03
 ---
 ###1.demo结构：
 ![](http://upload-images.jianshu.io/upload_images/2125695-12d6fb8aec5c1dfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
