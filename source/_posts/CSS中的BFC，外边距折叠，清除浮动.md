@@ -1,9 +1,12 @@
 title: CSS中的BFC，外边距折叠，清除浮动
 author: 若邪
 tags:
-  - CSS
-categories: []
-date: 2017-07-13 15:43:00
+  - BFC
+  - 外边距折叠
+  - 清除浮动
+categories:
+  - 前端
+date: 2017-03-16
 ---
 ### BFC是什么？
 BFC（Block Formatting Context）直译为“***块级格式化范围*** ”。

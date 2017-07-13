@@ -2,10 +2,9 @@ title: CSS实现Tab布局
 author: Jayce
 tags:
   - Tab布局
-  - ''
 categories:
-  - CSS
-date: 2017-07-12 16:21:00
+  - 前端
+date: 2017-04-05
 ---
 ### 一、布局方式
 #### 1、内容与tab分离
