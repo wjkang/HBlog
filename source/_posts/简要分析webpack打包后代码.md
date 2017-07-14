@@ -7,7 +7,7 @@ categories:
 date: 2016-09-04
 ---
 开门见山
-###1.打包单一模块
+### 1.打包单一模块
 webpack.config.js
 ```
 module.exports = {
@@ -119,7 +119,7 @@ a(module, exports,__webpack_require__);
 ```
 传入的module就是{exports: {},id: 0,loaded: false}，exports就是{}，__webpack_require__就是声明的__webpack_require__函数(传入这个函数有什么用呢，第二节将会介绍)；
 运行后module.exports就是{chunk1:1}。所以当我们使用chunk1这个模块的时候（比如var chunk1=require("chunk1"),得到的就是一个对象{chunk1:1}）。如果模块里没有exports.chunk1=chunk1或者module.exports=chunk1得到的就是一个空对象{}
-###2.使用模块
+### 2.使用模块
 上面我们已经分析了webpack是怎么打包一个模块的（入口文件就是一个模块），现在我们来看一下使用一个模块，然后使用模块的文件作为入口文件
 webpack.config.js
 ```
@@ -191,7 +191,7 @@ console.log(chunk1);
 }]
 ```
 其实就是多了一个main模块，不过这个模块没有导出项，而且这个模块依赖于chunk1模块。所以当运行__webpack_require__(0)的时候，main模块缓存到installedModules[0]上，modules[0].call(也就是调用main模块)的时候，chunk1被缓存到installedModules[1]上，并且导出对象{chunk1：1}给模块main使用
-###3.重复使用模块
+### 3.重复使用模块
 webpack.config.js
 ```
 module.exports = {
@@ -269,9 +269,9 @@ exports.chunk2=chunk2;
 }]);
 ```
 不难发现，当需要重复使用模块的时候，缓存变量installedModules 就起作用了
-###4.多个打包入口
+### 4.多个打包入口
 不管是单一模块还是重复模块，和以上两种一样
-###5.入口参数为数组
+### 5.入口参数为数组
 webpack.config.js
 ```
 module.exports = {
@@ -307,7 +307,7 @@ module.exports = {
 /******/ ]
 ```
 这里只截取自执行匿名函数的参数，因为其他代码与之前一样。可以看到1就是main默模块，2就是chunk1模块，3就是mian1模块，0的作用就是运行模块mian,mian1,然后将main1模块导出（main1中没有导出项，所以到导出{}），总结一下：入口参数是字符串不管是多入口还是单入口，最后都会将入口模块的导出项导出,没有导出项就导出{}，而入口参数是数组，就会将最后一个模块导出（webpackg官网有说明）
-###6.使用CommonsChunkPlugin插件
+### 6.使用CommonsChunkPlugin插件
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -704,7 +704,7 @@ function(module, exports, __webpack_require__) {
  			return __webpack_require__(0);
  		}
 ```
-###7.按需加载
+### 7.按需加载
 webpack.config.json
 ```
 module.exports = {

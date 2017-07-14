@@ -6,9 +6,9 @@ categories:
  - 前端
 date: 2016-09-03
 ---
-###1.demo结构：
+### 1.demo结构：
 ![](http://upload-images.jianshu.io/upload_images/2125695-12d6fb8aec5c1dfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-###2.package.json配置：
+### 2.package.json配置：
 ```
 {
   "name": "webpack-simple-demo",
@@ -32,8 +32,8 @@ date: 2016-09-03
   }
 }
 ```
-###3.多种打包情况(未使用CommonsChunkPlugin)
-####(1)单一入口，模块单一引用
+### 3.多种打包情况(未使用CommonsChunkPlugin)
+#### (1)单一入口，模块单一引用
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -58,7 +58,7 @@ require("jquery");
 demo目录下运行命令行  webpack或npm run webpack
 ![](http://upload-images.jianshu.io/upload_images/2125695-8aa6da95a1f4191a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 jquery模块被一起打包到build.js
-####(2)单一入口，模块重复引用
+#### (2)单一入口，模块重复引用
 webpack.config.js不变，main.js：
 ```
 require("./chunk1");
@@ -106,7 +106,7 @@ build.js:
 /***/ }
 /******/ ]);
 ```
-####(3)多入口，模块单一引用，分文件输出
+#### (3)多入口，模块单一引用，分文件输出
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -162,7 +162,7 @@ require("./main");
 报错：ERROR in ./main1.js
 Module not found: Error: a dependency to an entry point is not allowed
  @ ./main1.js 3:0-17
-###4.使用CommonsChunkPlugin
+### 4.使用CommonsChunkPlugin
 (1)单一入口，模块单一引用，分文件输出:
 webpack.config.js
 ```
@@ -218,7 +218,7 @@ module.exports = {
 };
 ```
 ![](http://upload-images.jianshu.io/upload_images/2125695-ee4302704803a8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-####(1)单一入口，模块重复引用，分文件输出(单一入口CommonsChunkPlugin能否将多次引用的模块打包到公共模块呢？)：
+#### (1)单一入口，模块重复引用，分文件输出(单一入口CommonsChunkPlugin能否将多次引用的模块打包到公共模块呢？)：
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -255,7 +255,7 @@ exports.chunk1=chunk1;
 ```
 chunk2模块被引用了两次
 打包后，所有模块还是被打包到main.js中
-####(3)多入口，模块重复引用，分文件输出（将多次引用的模块打包到公共模块）
+#### (2)多入口，模块重复引用，分文件输出（将多次引用的模块打包到公共模块）
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -474,7 +474,7 @@ load.js
 /******/ ([]);
 ```
 使用的时候必须最先加载load.js
-###6.参数minChunks: Infinity
+### 6.参数minChunks: Infinity
 看一下下面的配置会是什么结果
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -503,7 +503,7 @@ module.exports = {
 main.js,main1.js共同引用的chunk1和chunk2会被打包到jquery.js里
 
 minChunks:2修改为minChunks:Infinity后，chunk1和chunk2都打包到main.js,main1.js里
-###7.参数chunks
+### 7.参数chunks
 webpack.config.js
 ```
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
