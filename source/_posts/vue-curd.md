@@ -1,10 +1,10 @@
 title: vue-curd
 author: 若邪
 tags:
- - vue
+  - vue
 categories:
- - 前端
-date: 2016-09-20
+  - 前端
+date: 2016-09-20 00:00:00
 ---
 一个简单的vue 增删改查的例子。[在线地址][1]
 html:
@@ -244,6 +244,7 @@ var demo=new Vue({
 }
 });
 ```
+
 
 
   [1]: http://codepen.io/JayceWu/pen/pbkYEA
