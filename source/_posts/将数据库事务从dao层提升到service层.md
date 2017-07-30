@@ -9,7 +9,7 @@ date: 2017/7/30
 ---
 学习后端语言的时候，都会涉及到数据库的相关操作，不同语言在操作数据库方面有不同的驱动程序，比如java的JDBC,C#的ADO.NET。当进行数据的新增，更新以及删除的时候，经常需要开启数据库事务。比如ADO.NET是这样使用：
 
-```
+```cs
 SqlConnection con = new Sqlconnection("数据库连接语句");
 con.Open();
 var trans = con.BeginTransaction();
@@ -30,7 +30,7 @@ finally
 删除班级的同时一并删除学生，某一个失败，另一个删除操作回滚。这属于一个业务层的原子操作。在班级的service操作类中可以引入班级和学生的dao进行操作，两个dao的操作放到同一事务中进行操作。
 
 ### 连接Id类
-```
+```cs
 namespace RuoXieTranscation
 {
    public class ConnId
@@ -57,7 +57,7 @@ namespace RuoXieTranscation
 ```
 生成一个guid，后面标识每个连接实例的唯一性。
 ### 连接类
-```
+```cs
 namespace RuoXieTranscation
 {
     public class DbConnection
@@ -168,7 +168,7 @@ namespace RuoXieTranscation
 打开连接后可以显式调用BeginTransaction来决定使用事务
 ### 连接管理类
 
-```
+```cs
 namespace RuoXieTranscation
 {
     public class ConnManager
@@ -290,7 +290,7 @@ namespace RuoXieTranscation
 ```
 通过静态属性_cache保存每个连接的Id,_threadLocal保存当前线程中的连接Id，不管一个service中涉及多少个dao操作，都是处于同一线程中，通过_threadLocal就可以取出同一个连接对象进行操作。
 ### 使用
-```
+```cs
 public class SQLHelper
     {
         public static int ExecuteNonQuery(string sql, SqlParameter[] parameters = null)
@@ -321,7 +321,7 @@ public class SQLHelper
     }
 ```
 
-```
+```cs
 public class StudentDao
     {
         public bool Add(string name, string no)
@@ -339,7 +339,7 @@ public class StudentDao
     }
 ```
 
-```
+```cs
 public class StudentBll
    {
        private StudentDao mDao;
@@ -356,7 +356,7 @@ public class StudentBll
     }
 ```
 
-```
+```cs
 class Program
     {
         static void Main(string[] args)
@@ -427,7 +427,7 @@ class Program
     }
 ```
 虽然将事务提取到了service层，但是每次都要写这样的代码
-```
+```cs
             ConnManager.CreateConn();
             ConnManager.BeginTransaction();
             try
@@ -443,7 +443,7 @@ class Program
             }
 ```
 使用过spring或者spring.net的应该都知道将事务控制转到业务层事多简单，比如spring.net
-```
+```cs
         [Transaction]
         public void DeleteData(string name)
         {

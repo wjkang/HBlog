@@ -37,13 +37,13 @@ line-height是指文本行基线间的垂直距离。
 
 #### 1.4、line-height的设置
 **百分比方式设置**
-```
+```xml
 <body>
   121212
   <p>121212</p>
 </body>
 ```
-```
+```css
 body{
   font-size:16px;
   line-height:120%;
@@ -59,7 +59,7 @@ line-height的百分比（120%）和body的字体大小（16px），被用来计
 ![](http://upload-images.jianshu.io/upload_images/2125695-78b4087a3cd4be60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 **补充**
-```
+```css
 p{
   font-size:32px;
   line-height:60px;
@@ -75,13 +75,13 @@ p{
 盒模型中，内容（不是上文说的内容区，上文的内容区是顶线与底线间的区域）的高度等于line-height的值。为什么会有margin？浏览器默认P的上下margin是1em,设置了P的font-size是32px,所以1em=32px。上下margin就是32px。
 
 **长度方式（px）设置**
-```
+```xml
 <body>
   121212
   <p>121212</p>
 </body>
 ```
-```
+```css
 body{
   font-size:16px;
   line-height:20px;
@@ -95,13 +95,13 @@ p{
 ![](http://upload-images.jianshu.io/upload_images/2125695-f96f2fa3cd805769.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 **值normal**
-```
+```css
 <body>
   121212
   <p>121212</p>
 </body>
 ```
-```
+```css
 body{
   font-size:16px;
   line-height:normal;
@@ -125,12 +125,12 @@ p的line-height：32px*1.375=44px（normal并不是精确的等于1.375）
 就是将normal改为一个想要的准确数字。
 
 #### 1.5、各种BOX
-```
+```xml
 <body>
   <p>这个<em>强调</em> 元素为行内元素</p>
 </body>
 ```
-```
+```css
 body{
   font-size:16px;
   line-height:1.5;
@@ -211,7 +211,7 @@ inline-block因为已经有宽和高，可能存在多行，每行都有自己�
 内联块元素（上图三个inline-block的span）的基线取决它包含的内容是否在文档流中：
 - 在流内内容的情况下，内联块元素的基线是正常流中最后一个内容元素的基线（左边的例子）。对于这最后一个元素，它的基线是根据它自己的规则找到的。
 
-```
+```xml
 <div class="demo1">
   x<span>
     x<span style="display:inline-block;height:30px;width:100px;background-color:blue">x</span>
@@ -219,7 +219,7 @@ inline-block因为已经有宽和高，可能存在多行，每行都有自己�
   </span>
 </div>
 ```
-```
+```css
 .demo1 span{
   display:inline-block;
   background-color:silver;
@@ -237,7 +237,7 @@ inline-block因为已经有宽和高，可能存在多行，每行都有自己�
 最外面的X怎么也跟着移动了？这涉及行框基线的移动，下文细说。
 - 在流内内容但内联块元素有overflow:hidden属性的情况下，基线是内联块元素margin框的底部边缘（例如在中间的图）。
 修改上面的例子样式：
-```
+```css
 .demo1>span{
   display:inline-block;
   background-color:silver;
@@ -254,14 +254,14 @@ inline-block因为已经有宽和高，可能存在多行，每行都有自己�
 
 - 在流外内容的情况下，基线是内联块元素margin框的底部边缘（例如在右边）。
 
-```
+```xml
 <div class="demo1">
   x<span>
   <span style="display:inline-block;height:30px;width:100px;background-color:blue;">x</span>
   </span>
 </div>
 ```
-```
+```css
 .demo1>span{
   display:inline-block;
   background-color:silver;
@@ -273,7 +273,7 @@ inline-block因为已经有宽和高，可能存在多行，每行都有自己�
 ![](http://upload-images.jianshu.io/upload_images/2125695-1bf79648253f0178.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 加上浮动
-```
+```xml
 <div class="demo1">
   x<span>
   <span style="display:inline-block;height:30px;width:100px;background-color:blue;float:left">x</span>
@@ -347,14 +347,15 @@ bottom：元素的底部边缘对齐到父元素的底部边缘。
 
 **水平垂直居中**
 
-```
+```xml
 <div class="box">
         <div class="content">
           自适应垂直居中
         </div>
 </div>
 ```
-```
+
+```css
 html{
   height:100%;
 }
