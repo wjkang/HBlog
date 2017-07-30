@@ -426,3 +426,29 @@ class Program
         }
     }
 ```
+虽然将事务提取到了service层，但是每次都要写这样的代码
+```
+            ConnManager.CreateConn();
+            ConnManager.BeginTransaction();
+            try
+            {
+                //业务逻辑调用
+                ConnManager.Commit();
+                ConnManager.ReleaseConn();
+            }
+            catch (Exception e)
+            {
+                ConnManager.Rollback();
+                ConnManager.ReleaseConn();
+            }
+```
+使用过spring或者spring.net的应该都知道将事务控制转到业务层事多简单，比如spring.net
+```
+        [Transaction]
+        public void DeleteData(string name)
+        {
+            UserDao.Delete(name);
+            AccountDao.Delete(name);
+        }
+```
+只需要在service方法加上Transaction attribute。原理就是AOP编程。
