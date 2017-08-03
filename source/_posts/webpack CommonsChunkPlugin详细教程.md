@@ -9,7 +9,7 @@ date: 2016-09-03
 ### 1.demo结构：
 ![](http://upload-images.jianshu.io/upload_images/2125695-12d6fb8aec5c1dfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ### 2.package.json配置：
-```
+```json
 {
   "name": "webpack-simple-demo",
   "version": "1.0.0",
@@ -35,7 +35,7 @@ date: 2016-09-03
 ### 3.多种打包情况(未使用CommonsChunkPlugin)
 #### (1)单一入口，模块单一引用
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -52,7 +52,7 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 require("jquery");
 ```
 demo目录下运行命令行  webpack或npm run webpack
@@ -60,24 +60,24 @@ demo目录下运行命令行  webpack或npm run webpack
 jquery模块被一起打包到build.js
 #### (2)单一入口，模块重复引用
 webpack.config.js不变，main.js：
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 ```
 chunk1.js:
-```
+```javascript
 require("./chunk2");
 var chunk1=1;
 exports.chunk1=chunk1;
 ```
 chunk2.js:
-```
+```javascript
 var chunk2=1;
 exports.chunk2=chunk2;
 ```
 main.js引用了chunk1、chunk2,chunk1又引用了chunk2，打包后：
 build.js:
-```
+```javascript
  ...省略webpack生成代码
 /************************************************************************/
 /******/ ([
@@ -108,7 +108,7 @@ build.js:
 ```
 #### (3)多入口，模块单一引用，分文件输出
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -127,7 +127,7 @@ module.exports = {
 ```
 打包后文件main.js,main1.js  内容与（2）build.js一致
 ####（4）多入口，模块单一引用，单一文件输出
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -148,13 +148,13 @@ build.js与（2）一致
 ####（5）多入口，模块重复引用，单文件输出
 webpack.config.js与（4）一致
 main.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 exports.main=1;
 ```
 main1.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 require("./main");
@@ -165,7 +165,7 @@ Module not found: Error: a dependency to an entry point is not allowed
 ### 4.使用CommonsChunkPlugin
 (1)单一入口，模块单一引用，分文件输出:
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -186,7 +186,7 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 require("jquery");
@@ -196,7 +196,7 @@ require("jquery");
 
 将chunk1.js,chunck2.js打包到chunk.js:
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -220,7 +220,7 @@ module.exports = {
 ![](http://upload-images.jianshu.io/upload_images/2125695-ee4302704803a8a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 #### (1)单一入口，模块重复引用，分文件输出(单一入口CommonsChunkPlugin能否将多次引用的模块打包到公共模块呢？)：
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -243,12 +243,12 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 ```
 chunk1.js
-```
+```javascript
 require("./chunk2");
 var chunk1=1;
 exports.chunk1=chunk1;
@@ -257,7 +257,7 @@ chunk2模块被引用了两次
 打包后，所有模块还是被打包到main.js中
 #### (2)多入口，模块重复引用，分文件输出（将多次引用的模块打包到公共模块）
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   entry:
@@ -284,7 +284,7 @@ main.js,main1.js里都引用chunk1,chunk2.
 chunk1,chunk2被打包到chunk.js,不再像3(3)chunk1,chunk2分别被打包到mian,mian1中。
 ###5.将公共业务模块与类库或框架分开打包
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
@@ -312,7 +312,7 @@ module.exports = {
 ![](http://upload-images.jianshu.io/upload_images/2125695-c393f6cb60aed289.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 jquery被打包到common1.js,vue被打包到common2.js,chunk.js打包的是公共的业务模块(webpack用插件CommonsChunkPlugin进行打包的时候，将符合引用次数(minChunks)的模块打包到name参数的数组的第一个块里（chunk）,然后数组后面的块依次打包(查找entry里的key,没有找到相关的key就生成一个空的块)，最后一个块包含webpack生成的在浏览器上使用各个块的加载代码，所以页面上使用的时候最后一个块必须最先加载)
 将webpack.config.js改为
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
@@ -337,14 +337,14 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 var jq=require("jquery");
 console.log(jq);
 ```
 main1.js
-```
+```javascript
 require("./chunk1");
 require("./chunk2");
 var vue=require("vue");
@@ -354,7 +354,7 @@ exports.vue=vue;
 打包后
 ![](http://upload-images.jianshu.io/upload_images/2125695-d053503532733508.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 common.js
-```
+```javascript
 webpackJsonp([4,5],[
 /* 0 */,
 /* 1 */,
@@ -377,7 +377,7 @@ webpackJsonp([4,5],[
 ```
 相当于公共的业务代码都打包到了common.js里
 load.js
-```
+```javascript
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	var parentJsonpFunction = window["webpackJsonp"];
@@ -476,7 +476,7 @@ load.js
 使用的时候必须最先加载load.js
 ### 6.参数minChunks: Infinity
 看一下下面的配置会是什么结果
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
@@ -505,7 +505,7 @@ main.js,main1.js共同引用的chunk1和chunk2会被打包到jquery.js里
 minChunks:2修改为minChunks:Infinity后，chunk1和chunk2都打包到main.js,main1.js里
 ### 7.参数chunks
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {

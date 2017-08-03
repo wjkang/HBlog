@@ -8,7 +8,7 @@ date: 2016-09-20 00:00:00
 ---
 一个简单的vue 增删改查的例子。[在线地址][1]
 html:
-```
+```xml
 <div id="app">
    <div class="container">
      <div class="input-group">
@@ -73,7 +73,7 @@ html:
 </template>
 ```
 css
-```
+```css
 .dialog {
 	width: 350px;
 	position: fixed;
@@ -153,7 +153,7 @@ css
 }
 ```
 js
-```
+```javascript
 Vue.component("grid-s",{
   template:"#grid-tpl",
   props:["list","colums","searchQuery"],
@@ -247,4 +247,4 @@ var demo=new Vue({
 
 
 
-  [1]: http://codepen.io/JayceWu/pen/pbkYEA
+  [demo](http://codepen.io/JayceWu/pen/pbkYEA)

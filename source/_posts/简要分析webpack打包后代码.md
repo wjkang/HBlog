@@ -9,7 +9,7 @@ date: 2016-09-04
 开门见山
 ### 1.打包单一模块
 webpack.config.js
-```
+```javascript
 module.exports = {
     entry:"./chunk1.js",
     output: {
@@ -19,12 +19,12 @@ module.exports = {
 };
 ```
 chunk1.js
-```
+```javascript
 var chunk1=1;
 exports.chunk1=chunk1;
 ```
 打包后，main.js(webpack生成的一些注释已经去掉)
-```
+```javascript
  (function(modules) { // webpackBootstrap
  	// The module cache
  	var installedModules = {};
@@ -62,11 +62,11 @@ exports.chunk1=chunk1;
 }]);
 ```
 这其实就是一个立即执行函数，简化一下就是：
-```
+```javascript
 (function(module){})([function(){},function(){}]);
 ```
 OK,看一下自运行的匿名函数里面干了什么：
-```
+```javascript
 function(modules) { // webpackBootstrap
  	// modules就是一个数组，元素就是一个个函数体，就是我们声明的模块
  	var installedModules = {};
@@ -85,7 +85,7 @@ function(modules) { // webpackBootstrap
  }
 ```
 整个函数里就声明了一个变量installedModules 和函数__webpack_require__，并在函数上添加了一个m,c,p属性，m属性保存的是传入的模块数组，c属性保存的是installedModules变量，P是一个空字符串。最后执行__webpack_require__函数，参数为零，并将其执行结果返回。下面看一下__webpack_require__干了什么：
-```
+```javascript
 function __webpack_require__(moduleId) {
 		//moduleId就是调用是传入的0
  		// installedModules[0]是undefined,继续往下
@@ -106,11 +106,11 @@ function __webpack_require__(moduleId) {
  	}
 ```
 接着看一下modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)，其实就是
-```
+```javascript
 modules[moduleId].call({}, module, module.exports, __webpack_require__)
 ```
 对call不了解当然也可以认为是这样(但是并不是等价，call能确保当模块中使用this的时候，this是指向module.exports的)：
-```
+```javascript
 function  a(module, exports) {
 	var chunk1=1;
 	exports.chunk1=chunk1;
@@ -122,7 +122,7 @@ a(module, exports,__webpack_require__);
 ### 2.使用模块
 上面我们已经分析了webpack是怎么打包一个模块的（入口文件就是一个模块），现在我们来看一下使用一个模块，然后使用模块的文件作为入口文件
 webpack.config.js
-```
+```javascript
 module.exports = {
     entry:"./main.js",
     output: {
@@ -133,12 +133,12 @@ module.exports = {
 ```
 
 main.js
-```
+```javascript
 var chunk1=require("./chunk1");
 console.log(chunk1);
 ```
 打包后
-```
+```javascript
 (function (modules) { // webpackBootstrap
 	// The module cache
 	var installedModules = {};
@@ -177,11 +177,11 @@ console.log(chunk1);
 }]);
 ```
 不一样的地方就是自执行函数的参数由
-```
+```javascript
 [function(module, exports) { var chunk1=1; exports.chunk1=chunk1;}]
 ```
 变为
-```
+```javascript
 [function (module, exports, __webpack_require__) {
 	var chunk1=__webpack_require__(1);
 	console.log(chunk1);
@@ -193,7 +193,7 @@ console.log(chunk1);
 其实就是多了一个main模块，不过这个模块没有导出项，而且这个模块依赖于chunk1模块。所以当运行__webpack_require__(0)的时候，main模块缓存到installedModules[0]上，modules[0].call(也就是调用main模块)的时候，chunk1被缓存到installedModules[1]上，并且导出对象{chunk1：1}给模块main使用
 ### 3.重复使用模块
 webpack.config.js
-```
+```javascript
 module.exports = {
     entry:"./main.js",
     output: {
@@ -203,25 +203,25 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 var chunk1=require("./chunk1");
 var chunk2=require(".chunlk2");
 console.log(chunk1);
 console.log(chunk2);
 ```
 chunk1.js
-```
+```javascript
 var chunk2=require("./chunk2");
 var chunk1=1;
 exports.chunk1=chunk1;
 ```
 chunk2.js
-```
+```javascript
 var chunk2=1;
 exports.chunk2=chunk2;
 ```
 打包后
-```
+```javascript
 (function (modules) { // webpackBootstrap
 	// The module cache
 	var installedModules = {};
@@ -273,7 +273,7 @@ exports.chunk2=chunk2;
 不管是单一模块还是重复模块，和以上两种一样
 ### 5.入口参数为数组
 webpack.config.js
-```
+```javascript
 module.exports = {
     entry:['./main.js','./main1.js'],
     output: {
@@ -283,7 +283,7 @@ module.exports = {
 };
 ```
 打包后
-```
+```javascript
 [
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -309,7 +309,7 @@ module.exports = {
 这里只截取自执行匿名函数的参数，因为其他代码与之前一样。可以看到1就是main默模块，2就是chunk1模块，3就是mian1模块，0的作用就是运行模块mian,mian1,然后将main1模块导出（main1中没有导出项，所以到导出{}），总结一下：入口参数是字符串不管是多入口还是单入口，最后都会将入口模块的导出项导出,没有导出项就导出{}，而入口参数是数组，就会将最后一个模块导出（webpackg官网有说明）
 ### 6.使用CommonsChunkPlugin插件
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
@@ -329,7 +329,7 @@ module.exports = {
 ```
 main mian1中都require了chunk1,所以chunk1会被打包到common。
 打包后，common.js
-```
+```javascript
 (function (modules) { // webpackBootstrap
 	// install a JSONP callback for chunk loading
 	var parentJsonpFunction = window["webpackJsonp"];
@@ -415,7 +415,7 @@ main mian1中都require了chunk1,所以chunk1会被打包到common。
 }]);
 ```
 main.js
-```
+```javascript
 webpackJsonp([0],[function(module, exports, __webpack_require__) {
 
 	var chunk1=__webpack_require__(1);
@@ -423,14 +423,14 @@ webpackJsonp([0],[function(module, exports, __webpack_require__) {
  }]);
 ```
 main1.js
-```
+```javascript
 webpackJsonp([1],[function(module, exports, __webpack_require__) {
 	var chunk1=__webpack_require__(1);
 	console.log(chunk1);
 }]);
 ```
 与之前相比，多了webpackJsonp函数，立即执行的匿名函数没有立即调用__webpack_require__(0)。看一下webpackJsonp：
-```
+```javascript
 var parentJsonpFunction = window["webpackJsonp"];
 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
 		//moreModules为独立chunk代码，chunkIds标记独立chunk唯一性避免按需加载时重复加载
@@ -508,7 +508,7 @@ var parentJsonpFunction = window["webpackJsonp"];
 ```
 好像看不出什么。。。，修改一下
 webpack.config.js
-```
+```javascript
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
     entry: {
@@ -530,12 +530,12 @@ module.exports = {
 };
 ```
 main,main1都分别require chunk1,chunk2,然后将chunk1打包到公共模块（minChunks:3，chunk2不会被打包到公共模块）。自运行匿名函数最后多了
-```
+```javascript
    return __webpack_require__(0);
 ```
 则installedModules[0]为已经loaded,看common.js，installedModules[1]也会loaded。
 main.js
-```
+```javascript
 webpackJsonp([1], [function (module, exports, __webpack_require__) {
 
 	var chunk1 = __webpack_require__(1);
@@ -550,7 +550,7 @@ webpackJsonp([1], [function (module, exports, __webpack_require__) {
 ]);
 ```
 main1.js
-```
+```javascript
 webpackJsonp([2], [function (module, exports, __webpack_require__) {
 
 	var chunk1 = __webpack_require__(1);
@@ -564,7 +564,7 @@ webpackJsonp([2], [function (module, exports, __webpack_require__) {
 ]);
 ```
 common.js  modules：
-```
+```javascript
 [function (module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
@@ -576,7 +576,7 @@ common.js  modules：
 
 ```
 以main.js的代码为例，调用webpackJsonp，传入的参数chunkIds为[1],moreModules为
-```
+```javascript
 [function (module, exports, __webpack_require__) {
 
 	var chunk1 = __webpack_require__(1);
@@ -589,7 +589,7 @@ common.js  modules：
 
 }]
 ```
-```
+```javascript
 var moduleId, chunkId, i = 0, callbacks = [];
 		for (; i < chunkIds.length; i++) {
 			chunkId = chunkIds[i];//1
@@ -615,7 +615,7 @@ var moduleId, chunkId, i = 0, callbacks = [];
 ```
 再看下面的情况：
 common.js 自执行函数参数（公共模块）（没有return __webpack_require__(0)）
-```
+```javascript
 [,function(module, exports, __webpack_require__) {
 
 	var chunk1=1;
@@ -628,7 +628,7 @@ common.js 自执行函数参数（公共模块）（没有return __webpack_requi
 }]
 ```
 main.js
-```
+```javascript
 webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
@@ -642,7 +642,7 @@ webpackJsonp([0],[
 ]);
 ```
 以main调用分析
-```
+```javascript
          var moduleId, chunkId, i = 0, callbacks = [];
  		for(;i < chunkIds.length; i++) {
  			chunkId = chunkIds[i];//0
@@ -666,7 +666,7 @@ webpackJsonp([0],[
 还有这种打包情况：
 common.js不包含公共模块，即自执行函数参数为[]。
 main.js
-```
+```javascript
 webpackJsonp([0,1],[
 function(module, exports, __webpack_require__) {
 
@@ -683,7 +683,7 @@ function(module, exports, __webpack_require__) {
 }]);
 ```
 以main调用分析
-```
+```javascript
      var moduleId, chunkId, i = 0, callbacks = [];
  		for(;i < chunkIds.length; i++) {
  			chunkId = chunkIds[i];//0,1
@@ -706,7 +706,7 @@ function(module, exports, __webpack_require__) {
 ```
 ### 7.按需加载
 webpack.config.json
-```
+```javascript
 module.exports = {
   entry: './main.js',
   output: {
@@ -715,7 +715,7 @@ module.exports = {
 };
 ```
 main.js
-```
+```javascript
 require.ensure(['./a'], function(require) {
   var content = require('./a');
   document.open();
@@ -724,7 +724,7 @@ require.ensure(['./a'], function(require) {
 });
 ```
 a.js
-```
+```javascript
 module.exports = 'Hello World';
 ```
 打包后
@@ -732,7 +732,7 @@ module.exports = 'Hello World';
 ![](https://segmentfault.com/img/bVEHy5?w=193&h=136)
 
 bundle.js
-```
+```javascript
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	var parentJsonpFunction = window["webpackJsonp"];
@@ -842,7 +842,7 @@ bundle.js
 /******/ ]);
 ```
 1.bundle.js
-```
+```javascript
 webpackJsonp([1],[
 /* 0 */,
 /* 1 */
@@ -855,7 +855,7 @@ webpackJsonp([1],[
 ]);
 ```
 和使用CommonsChunkPlugin打包的差异在于
-```
+```javascript
 /******/ 	// This file contains only the entry chunk.
 /******/ 	// The chunk loading function for additional chunks
 /******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
@@ -882,7 +882,7 @@ webpackJsonp([1],[
 ```
 模块main的id为0，模块a的id为1。return __webpack_require__(0)，则加载main模块，
 modules[0].call(module.exports, module, module.exports, __webpack_require__)则调用函数
-```
+```javascript
 function(module, exports, __webpack_require__) {
 
 	__webpack_require__.e/* nsure */(1, function(require) {
@@ -892,7 +892,7 @@ function(module, exports, __webpack_require__) {
 	  document.close();
 	}
 ```
-```
+```javascript
 /******/ 	// This file contains only the entry chunk.
 /******/ 	// The chunk loading function for additional chunks
 /******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
@@ -931,7 +931,7 @@ function(module, exports, __webpack_require__) {
 					//installedChunks[1]在webpackJsonp得到调用
 ```
 installedChunks[1]为数组，元素为main模块的执行代码
-```
+```javascript
 /******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
 	            //moreModules为模块a的代码
 /******/ 		// add "moreModules" to the modules object,

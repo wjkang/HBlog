@@ -61,8 +61,8 @@ date: 2017-03-04
 
 ![](http://upload-images.jianshu.io/upload_images/2125695-2422c2ed8eea1a79.gif?imageMogr2/auto-orient/strip)
 
-```
-data: {
+```json
+data:{
             properties: properties,
             skus: skus
         }
@@ -70,7 +70,7 @@ data: {
 
 遍历properties，得到材质，颜色，发货地，套餐这些属性对象，接着遍历这些对象里的values属性,得到属性值对象,根据属性对象的selectedValues判断属性值是否选上（因为我是后端渲染的js变量，所以初始化的时候selectedValues里的数据直接引用的属性值对象，如果是非后端渲染的话，要根据skus里的属性和属性值去初始化selectedValues的数据，并且存的是属性值对象的引用）
 
-```
+```xml
 <tr v-for="(index,item) in properties">
         <td><strong>{{item.Name}}：</strong></td>
         <td>
@@ -111,7 +111,7 @@ data: {
 
 那么怎么根据选中的属性值生成SKU呢？
 SKU表格处的表头是要根据选中的属性动态更新的，可以这样做
-```
+```xml
 <tr>
       <th v-for="item in properties" v-if="item.selectedValues.length>0">{{item.Name}}</th>
       <th><span class="c_red">*</span>零售价</th>
@@ -122,7 +122,7 @@ SKU表格处的表头是要根据选中的属性动态更新的，可以这样�
 如果属性里的属性值都没有被选中（selectedValues.length==0），就不在表头显示这个属性。
 
 SKU的初始显示
-```
+```xml
 <tr v-for="sku in skus">
         <td v-for="item in properties" v-if="item.selectedValues.length>0">{{getValueName(sku,item)}}</td>
         <td>US $<input type="text" v-model="sku.SkuPrice" class="w50" maxlength="9"/><span name="productUnitTips"></span></td>
@@ -131,7 +131,7 @@ SKU的初始显示
 </tr>
 ```
 也是利用selectedValues.length让SKU的属性值列数与表头列数保持一致。因为SKU对象里的保存的是属性值Id和属性Id,需要一个方法去获取属性值的值
-```
+```javascript
 getValueName: function (sku, property) {
                 var valueName = "";
                 $.each(sku.values,
@@ -155,7 +155,7 @@ getValueName: function (sku, property) {
 接下来就是SKU表格的更新了，我的做法是变更整块区域，就是给skus重新赋值。赋的新值从哪来呢？
 
 将选中的属性值放到一个数组中
-```
+```javascript
                var ori = [];
                 $.each(vm.properties,
                         function (index, item) {
@@ -166,7 +166,7 @@ getValueName: function (sku, property) {
                         });
 ```
 得到这种结构的数组
-```
+```json
 [
   [
     {
@@ -203,10 +203,10 @@ getValueName: function (sku, property) {
 ]
 ```
 求笛卡尔积后（后面有求笛卡尔积参考链接）
-```
+```javascript
 var ret = descartes(ori);
 ```
-```
+```json
 [
   [
     {
@@ -276,7 +276,7 @@ var ret = descartes(ori);
 ```
 大前端也用上了算法有木有，这里需要弄明白拿到的是什么数据，需要的是什么数据，然后就去想实现就OK了。
 想要的数据已经拿到，重新构建skus
-```
+```javascript
          for (var i = 0; i < ret.length; i++) {
                     var sku = {SkuCode: "", SkuPrice: "", StockQuantity: ""};
                     sku.values = [];
@@ -290,7 +290,7 @@ var ret = descartes(ori);
 到此，更新SKU表格的代码已经实现，数据驱动视图更新，很清晰。但是什么时候去触发这个更新呢（何时去重新构建skus）? 很简单嘛，就是勾选或取消勾选属性值的时候去触发更新操作。勾选或取消勾选我们能直接从selectedValues.length上得到反馈，然后使用vue 的watch就可以实现了。但是selectedValues是properties数组中元素的一个属性，vue的watch是无法用在数组元素的某一个字段上的（至少目前我发现是这样的），那么暴力一点，直接watch整个properties数组并且加上deep:true。这样是可以实现，但是当修改自定义属性的时候也会触发变更（业务会提刀来见的）。
 
 最终解决方案
-```
+```javascript
 computed:{
             allCheckedLength:function(){
                var length=0;
@@ -301,7 +301,7 @@ computed:{
             }
   }
 ```
-```
+```javascript
 watch: {
             'allCheckedLength': {
                 handler: 'reBuild'

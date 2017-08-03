@@ -95,7 +95,8 @@ p{
 ![](http://upload-images.jianshu.io/upload_images/2125695-f96f2fa3cd805769.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 **值normal**
-```css
+
+```xml
 <body>
   121212
   <p>121212</p>

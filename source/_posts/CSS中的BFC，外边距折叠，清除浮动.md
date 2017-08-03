@@ -40,7 +40,7 @@ BFC的区域不会与float box重叠(解决浮动元素文字环绕问题)
 - 没有inline盒子，没有空隙，没有 padding 和 border 将他们分隔开。
 - 都属于垂直方向上相邻的外边距。
 如下：
-```
+```xml
 <div clss="container">
     <div class="f-block">
     </div>
@@ -48,7 +48,7 @@ BFC的区域不会与float box重叠(解决浮动元素文字环绕问题)
     </div>
 </div>
 ```
-```
+```css
 .f-block
 {
   width:200px;
@@ -73,7 +73,7 @@ BFC的区域不会与float box重叠(解决浮动元素文字环绕问题)
 3、元素间插入一个高度大于0的div
 4、使元素不在同一BFC中
 
-```
+```xml
   <!--元素间插入一个高度大于0的div-->
   <div class="f-block">
   </div>
@@ -84,7 +84,7 @@ BFC的区域不会与float box重叠(解决浮动元素文字环绕问题)
 
 ![元素间插入一个高度大于0的div](http://upload-images.jianshu.io/upload_images/2125695-abe89b14510dc229.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-```
+```xml
 <div class="f-block"></div>
 <div>
   <div class="s-block"></div>
@@ -95,7 +95,7 @@ f-block,s-block以及s-block外层div已经还是处在相同BFC中，所以还�
 下面解决父子元素的外边距折叠问题：
 
 **给父元素添加padding 或 border（破坏外边距折叠条件）**
-```
+
 <div class="f-block"></div>
 <div style="background-color:red;border:1px solid black">
   <div class="s-block"></div>
@@ -106,7 +106,7 @@ f-block,s-block以及s-block外层div已经还是处在相同BFC中，所以还�
 
 
 **给父元素创建新的块级格式化上下文（创建了新的块级格式化上下文的块元素，不与它的子元素发生margin 折叠）**
-```
+```xml
 <div class="f-block"></div>
 <div style="background-color:red;overflow:hidden">
   <div class="s-block"></div>
@@ -115,7 +115,7 @@ f-block,s-block以及s-block外层div已经还是处在相同BFC中，所以还�
 ![](http://upload-images.jianshu.io/upload_images/2125695-6050f96cc1f7c74d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 #### 2、清除浮动
-```
+```xml
 <div class="container">
   <div class="item"></div>
   <div class="item"></div>
@@ -124,7 +124,7 @@ f-block,s-block以及s-block外层div已经还是处在相同BFC中，所以还�
   <div class="item"></div>
 </div>
 ```
-```
+```css
 .container
 {
   width:550px;
@@ -155,7 +155,7 @@ clear属性的意义就是禁止特定方向上存在浮动元素，例如clear:
 用法：
 1、容器内结尾处加空div标签 clear:both 
 2、容器定义伪类:after 和 zoom(IE8以上和非IE浏览器才支持:after，原理和方法2有点类似，zoom(IE转有属性)可解决ie6,ie7浮动问题)
-```
+```css
 .container:after{display:block;clear:both;content:"";visibility:hidden;height:0}
 .container{zoom:1}
 ```
@@ -163,7 +163,7 @@ clear属性的意义就是禁止特定方向上存在浮动元素，例如clear:
 **容器形成新BFC**：
 计算BFC的高度时，浮动元素也参与计算
 
-```
+```css
 .container
 {
   width:550px;
@@ -174,13 +174,13 @@ clear属性的意义就是禁止特定方向上存在浮动元素，例如clear:
 或者使容器自身浮动也可以
 
 消除浮动引起的文字环绕效果：
-```
+```xml
 <div class="box">
     <div class="img">image</div>
     <div class="info">信息信息信息信息信息信息信息信息信息信息信息信信息信息信息信息信息信息信息信息信息信息信息信信息信息信息信息信息信息信息信息信息信息信息信信息信息信息信息信息信息信息信息信息信息信息信</div>
 </div>
 ```
-```
+```css
 .box {width:210px;border: 1px solid #000;float: left;} 
 .img {width: 100px;height: 100px;background: #696;float: left;} 
 .info {background: #ccc;color: #fff;}

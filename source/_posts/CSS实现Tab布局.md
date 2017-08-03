@@ -8,7 +8,7 @@ date: 2017-04-05
 ---
 ### 一、布局方式
 #### 1、内容与tab分离
-```
+```xml
 <div class="container">
    <div class="tab-content">
      <div id="item1" class="item">内容1</div>
@@ -26,7 +26,7 @@ date: 2017-04-05
    </div>
 </div>
 ```
-```
+```css
 ul,li{
   margin:0;
   padding:0;
@@ -89,7 +89,7 @@ ul,li{
 
 
 #### 2、内容与tab一体
-```
+```xml
 <div class="container">
    <ul>
      <li class="item active">
@@ -111,7 +111,7 @@ ul,li{
    </ul>
 </div>
 ```
-```
+```css
 ul,li,p{
   margin:0;
   padding:0;
@@ -175,7 +175,7 @@ ul,li,p{
 ### 二、CSS实现交互
 #### 1、锚点实现（target）
 **(1)针对布局一**：item从上往下排列，父元素tab-content加上overflow:hidden。利用锚点，点击不同a标签的时候，具有对应ID的item会切换到tab-content的视图中，然后利用hover给tab按钮加上切换样式。
-```
+```xml
 <div class="container">
    <div class="tab-content">
      <div id="item1" class="item">内容1</div>
@@ -193,7 +193,7 @@ ul,li,p{
    </div>
 </div>
 ```
-```
+```css
 ul,li{
   margin:0;
   padding:0;
@@ -250,7 +250,7 @@ ul,li{
 
 上述方法只是利用了锚点切换，没有使用：target。修改CSS
 
-```
+```css
 ul,li{
   margin:0;
   padding:0;
@@ -317,7 +317,7 @@ ul,li{
 item使用绝对定位，然后使用:target修改元素z-index达到切换效果（其实也可以通过控制元素的display来达到切换效果）
 
 **（2）针对布局二：**
-```
+```xml
 <div class="container">
    <ul>
      <li class="item active" id="item1">
@@ -339,7 +339,7 @@ item使用绝对定位，然后使用:target修改元素z-index达到切换效�
    </ul>
 </div>
 ```
-```
+```css
 ul,
 li,
 p {
@@ -421,7 +421,7 @@ p {
 无法简单的通过CSS实现
 
 **（2）针对布局二：**
-```
+```xml
 <div class="container">
    <ul>
      <li class="item active">
@@ -443,7 +443,7 @@ p {
    </ul>
 </div>
 ```
-```
+```css
 ul,li,p{
   margin:0;
   padding:0;
@@ -502,7 +502,7 @@ ul,li,p{
 ```
 #### 3、label与:checked实现
 **（1）针对布局一：**
-```
+```xml
 <div class="container">
   <div class="tab-content">
     <input type="radio" name="item" class="radio-item" id="item1" checked/>
@@ -524,7 +524,7 @@ ul,li,p{
   </div>
 </div>
 ```
-```
+```css
 ul,
 li {
   margin: 0;
@@ -607,7 +607,7 @@ input {
 利用css :checked与+（选择紧接在另一个元素后的元素，而且二者有相同的父元素）选择符。
 
 **（2）针对布局二：**
-```
+```xml
 <div class="container">
    <ul>
      <li class="item active">
@@ -633,7 +633,7 @@ input {
    </ul>
 </div>
 ```
-```
+```css
 ul,li,p{
   margin:0;
   padding:0;
