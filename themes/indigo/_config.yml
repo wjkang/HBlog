@@ -113,7 +113,7 @@ less:
 # 是否开启 disqus
 disqus_shortname: false
 # 是否开启友言评论, 填写友言用户id
-uyan_uid: 2138808
+uyan_uid: false #2138808
 # 是否开启网易云跟帖， 填写app sdk中的app key
 wangyi_ygt: false
 # 是否使用 gitment，https://github.com/imsun/gitment
@@ -123,6 +123,11 @@ gitment: false
 #   repo:
 #   client_id:
 #   client_secret:
+ gittalk:
+   owner: wjkang
+   repo: jaycewu.site
+   client_id: f982ac953ab75a652b3a
+   client_secret: e2c4cd9eefa872763864a42f4944ce5ef200da4b
 
 # 规范网址
 # 让搜索引擎重定向你的不同域名、不同子域、同域不同目录的站点到你期望的路径
@@ -144,7 +149,7 @@ visit_counter:
 # 动态定义title
 title_change:
   normal: (つェ⊂)咦!又好了!
-  leave: 去哪里了！
+  leave: 页面崩了！
 
 # 设置为 true 发布后将使用 unpkg cdn
 cdn: false

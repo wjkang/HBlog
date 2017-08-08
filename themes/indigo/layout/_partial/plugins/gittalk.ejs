@@ -1,0 +1,18 @@
+<% if (theme.gittalk){ %>
+<section class="comments" id="comments">
+    <div id="gitment_thread"></div>
+    <link rel="stylesheet" href="<%- url_for(theme_css('/css/gitalk', cache)) %>">
+    <script src="<%- url_for(theme_js('/js/gitalk', cache)) %>"></script>
+    <script>
+        var gitalk = new Gitalk({
+            clientID: '<%- theme.gittalk.client_id %>',
+            clientSecret: '<%- theme.gittalk.client_secret %>',
+            repo: '<%- theme.gittalk.repo %>',
+            owner: '<%- theme.gittalk.owner %>',
+            admin: ['<%- theme.gittalk.owner %>'],
+            distractionFreeMode: true
+        });
+        gitalk.render('comments');
+    </script>
+</section>
+<% } %>
