@@ -223,7 +223,7 @@ TransactionCallHandler表明该方法要开启事务，但是如果mValueService
 
 ### 使用[Castle.DynamicProxy](https://github.com/castleproject/Core)
 
-要实现标识了TransactionCallHandler的方法实现自动事务，就要代理BL类。这里使用Castle.DynamicProxy
+要实现标识了TransactionCallHandler的方法实现自动事务，使用Castle.DynamicProxy实现BL类的代理
 
 Castle.DynamicProxy一般操作
 ``` cs
