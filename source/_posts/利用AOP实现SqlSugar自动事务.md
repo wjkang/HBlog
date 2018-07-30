@@ -7,7 +7,7 @@ tags:
  - Castle.DynamicProxy
 categories:
  - 后端
-date: 2017/10/25 0025
+date: 2018-07-28 00:00:00
 ---
 先看一下效果,带接口层的三层架构:
 

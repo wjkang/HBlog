@@ -23,6 +23,10 @@ menu:
   github:
     url: https://github.com/wjkang
     target: _blank
+  dot-circle-o:
+      text: 掘金
+      url: https://juejin.im/user/57bab5a45bbb500063fd28bc
+      target: _blank
   trello:
     text: segmentfault
     url: https://segmentfault.com/blog/jayce
@@ -45,7 +49,7 @@ brand: /img/brand.jpg
 favicon: /favicon.png
 
 # email
-email: 977865769@qq.com
+email: ruoxieme@gmail.com
 
 # 设置 Android L Chrome 浏览器状态栏颜色
 color: '#3F51B5'
