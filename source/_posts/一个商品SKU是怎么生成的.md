@@ -8,7 +8,7 @@ date: 2017-03-04
 ---
 首先说一说什么是SKU。。。。。。。自己百度去。。。
 
-类似京东上面，未来人类S5这个台笔记本（没错，我刚入手了）
+类似京东上面，未来人类S5这个台笔记本
 
 ![](http://upload-images.jianshu.io/upload_images/2125695-7c81b33ee95b81b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
