@@ -4,7 +4,6 @@ tags:
   - WebSocket
 categories:
   - 前端
-  - 后端
 date: 2018-11-05 00:00:00
 ---
 通过参考koa中间件，socket.io远程事件调用，以一种新的姿势来使用WebSocket。
