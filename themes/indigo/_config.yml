@@ -21,9 +21,9 @@ menu:
     text: 分类
     url: /categories
   rebel:
-        text: 关于
-        url: https://jaycewu.gitee.io/resume
-        target: _blank
+    text: 关于
+    url: https://jaycewu.gitee.io/resume
+    target: _blank
   github:
     url: https://github.com/wjkang
     target: _blank
