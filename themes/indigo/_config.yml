@@ -20,6 +20,10 @@ menu:
   th-list:
     text: 分类
     url: /categories
+  rebel:
+        text: 关于
+        url: https://jaycewu.gitee.io/resume
+        target: _blank
   github:
     url: https://github.com/wjkang
     target: _blank
@@ -35,10 +39,6 @@ menu:
       text: 简书
       url: http://www.jianshu.com/u/1e9a94bda7fb
       target: _blank
-  user-astronaut:
-        text: 关于
-        url: https://jaycewu.gitee.io/resume
-        target: _blank
 
 
 
