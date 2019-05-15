@@ -29,12 +29,16 @@ menu:
       target: _blank
   trello:
     text: segmentfault
-    url: https://segmentfault.com/blog/jayce
+    url: https://segmentfault.com/blog/ruoxie
     target: _blank
   rebel:
       text: 简书
       url: http://www.jianshu.com/u/1e9a94bda7fb
       target: _blank
+  user-astronaut:
+        text: 关于
+        url: https://jaycewu.gitee.io/resume
+        target: _blank
 
 
 
