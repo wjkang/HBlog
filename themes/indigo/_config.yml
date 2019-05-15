@@ -20,7 +20,7 @@ menu:
   th-list:
     text: 分类
     url: /categories
-  rebel:
+  user:
     text: 关于
     url: https://jaycewu.gitee.io/resume
     target: _blank
